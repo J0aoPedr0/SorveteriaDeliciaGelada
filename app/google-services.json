@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608066810156",
+    "project_id": "sorveteria-delicia-gelada-fb",
+    "storage_bucket": "sorveteria-delicia-gelada-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608066810156:android:44585bbbbc14784c653c89",
+        "android_client_info": {
+          "package_name": "com.example.sorveteriadelciagelada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDivqk-YgLkRLOqMEAJ0w7x5Vf4SGGIIUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
