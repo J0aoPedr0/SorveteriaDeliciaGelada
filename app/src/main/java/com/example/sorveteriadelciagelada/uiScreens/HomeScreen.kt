@@ -1,5 +1,6 @@
-package com.example.sorveteriadelciagelada
+package com.example.sorveteriadelciagelada.uiScreens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -27,20 +29,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.sorveteriadelciagelada.R
+import com.example.sorveteriadelciagelada.ScreensHome
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavHostController) {
     var textName by remember {
-        mutableStateOf("")
-    }
+        mutableStateOf("")}
+    var context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.dark_red)),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+        horizontalAlignment = Alignment.CenterHorizontally) {
 
         Text(
             text = "Olá, qual o seu nome?",
@@ -54,21 +58,27 @@ fun HomeScreen(navController: NavController) {
 
         OutlinedTextField(
             value = textName,
-            onValueChange = { text -> textName = text },
+            onValueChange = { text -> textName = text
+            },
             label = { Text(text = "Nome:") },
             placeholder = { Text(text = "Nome:") },
             shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             modifier = Modifier
-                .padding(top = 20.dp)
-                )
-
+                .background(Color.White)
+        )
         Button(
-            onClick = {navController.navigate("screen_B")},
-            Modifier
+            onClick = {
+                if (textName.isBlank()) Toast.makeText(context, "Coloque um nome!",
+                    Toast.LENGTH_SHORT).show()
+                else{
+                    navController.navigate(ScreensHome.ItemsScreen + "/$textName")
+                }
+                      },
+            colors = ButtonDefaults.buttonColors(Color.Yellow),
+            modifier = Modifier
                 .padding(top = 36.dp, start = 20.dp, end = 20.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color.Yellow)
+                .fillMaxWidth()
         ) {
             Text(
                 text = "Salvar",
@@ -76,7 +86,7 @@ fun HomeScreen(navController: NavController) {
                     color = Color.Red,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
-                )
+                ),
             )
         }
     }

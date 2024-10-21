@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sorveteriadelciagelada.ui.theme.SorveteriaDelíciaGeladaTheme
+import com.example.sorveteriadelciagelada.uiScreens.HomeScreen
+import com.example.sorveteriadelciagelada.uiScreens.ItemsScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,22 +19,33 @@ class MainActivity : ComponentActivity() {
         setContent {
             SorveteriaDelíciaGeladaTheme {
                 Navigation()
+
             }
         }
     }
 }
 @Composable
-fun Navigation(){
+fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController,
-        startDestination = "") {
 
-        composable("screen_A"){
+    NavHost(
+        navController = navController,
+        startDestination = ScreensHome.homeScreen
+    ) {
+
+        composable(ScreensHome.homeScreen) {
             HomeScreen(navController = navController)
         }
-        composable("screen_B"){
-            ItemsScreen(navController = navController)
+
+        composable(ScreensHome.ItemsScreen + "/{textName}") {
+            val userName = it.arguments?.getString("textName")
+            ItemsScreen(userName, navController = navController, cardInfo = CardInfo(""))
+
         }
+
     }
+
 }
+
+
